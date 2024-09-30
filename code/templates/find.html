@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            margin: 0;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: lightpink;
+            color: black;
+            text-align:center;
+            height: 100vh;
+            padding-top: 30px;
+            position: fixed;
+        }
+        .sidebar a {
+            padding: 15px;
+            text-decoration: arial;
+            text-align : center;
+            color: darkpink;
+            display: block;
+        }
+        .sidebar a:hover {
+            background-color: blue;
+        }
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+            width: calc(100% - 250px);
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            margin: 0;
+        }
+        .stats-overview {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+        .stats-box {
+            background-color: #f4f4f4;
+            padding: 20px;
+            border-radius: 8px;
+            width: 20%;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        .section h2 {
+            margin-bottom: 10px;
+        }
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .table th, .table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+        .table th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Admin Dashboard</h2>
+        <a href="{{url_for('admin')}}"><h3>Dashboard Overview</h3></a>
+        <a href="{{url_for('find')}}"><h3>Find</h3></a>
+        <a href="{{url_for('stat')}}"><h3>Statatics</h3></a>
+        <a href="{{url_for('login')}}"><h3>Logout</h3></a>
+    </div>
+    <div class="main-content">
+        <h1>Users</h1>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.name }}</td>
+                    <td>
+                        <button class="btn btn-warning flag-btn" data-id="{{ user.id }}" data-type="user">
+                            {% if user.flagged %}
+                                Unflag
+                            {% else %}
+                                Flag
+                            {% endif %}
+                        </button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h1>Campaigns</h1>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for campaign in campaigns %}
+                <tr>
+                    <td>{{ campaign.id }}</td>
+                    <td>{{ campaign.name }}</td>
+                    <td>{{ campaign.description }}</td>
+                    <td>
+                        <button class="btn btn-warning flag-btn" data-id="{{ campaign.id }}" data-type="campaign">
+                            {% if campaign.flagged %}
+                                Unflag
+                            {% else %}
+                                Flag
+                            {% endif %}
+                        </button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $('.flag-btn').on('click', function() {
+                var button = $(this);
+                var id = button.data('id');
+                var type = button.data('type');
+                var url = '/find/flag/' + type + '/' + id;
+
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    success: function(response) {
+                        console.log('Success:', response); // Debug log
+                        location.reload(); // This reloads the entire page
+                    },
+                    error: function(xhr, status, error) {
+                        console.log('Error:', error); // Debug log
+                        console.log('Status:', status); // Debug log
+                        console.log('Response:', xhr.responseText); // Debug log
+                    }
+                });
+            });
+        });
+    </script>
+    </div>    
+</body>
+</html>

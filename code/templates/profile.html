@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: orange;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 500px;
+            margin: 25px auto;
+            background-color: LightGreen;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
+        }
+        .form-group label {
+            font-weight: bold;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .btn-primary {
+            background-color: blue;
+            border-color: black;
+        }
+        h1, h2, h3 {
+            text-align: center;
+        }
+        .text-shadow {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 40px;
+            font-color: Red;
+            font-align: center;
+            text-shadow: 4px 4px 5px rgba(0, 0, 0, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <h1>Profile  @</h1> <br>
+    {% for influencer in influencer %}
+        <h1 class="text-shadow"><font color="Red"> {{ influencer.name }} </font></h1>
+    {% endfor %}
+    <div class="container">
+        <h3>Edit Profile</h3>
+        <form method="POST">
+            <input type="hidden" name="id" value="{{ influencer.id }}">
+            <input type="hidden" name="name" value="{{ influencer.name }}">
+            <div class="form-group">
+                <label for="password">New Password:</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <label for="category">New Category:</label>
+                <input type="text" class="form-control" id="category" name="category" required>
+            </div>
+            <div class="form-group">
+                <label for="niche">New Niche:</label>
+                <input type="text" class="form-control" id="niche" name="niche" required>
+            </div>
+            <div class="form-group">
+                <label for="followers">Followers:</label>
+                <input type="number" class="form-control" id="followers" name="followers" required>
+            </div>
+            <button type="submit"><a href="{{ url_for('influencer')}}">Update</a></button>
+        </form>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Campaign</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        /* Form Styles */
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="number"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h2>Edit Campaign</h2>
+    <form method="POST">
+        <label>Name:</label>
+        <input type="text" name="name" value="{{ campaign.name }}" required>
+        <label>Description:</label>
+        <textarea name="description" required>{{ campaign.description }}</textarea>
+        <label>Start Date:</label>
+        <input type="date" name="start_date" value="{{ campaign.start_date }}" required>
+        <label>End Date:</label>
+        <input type="date" name="end_date" value="{{ campaign.end_date }}" required>
+        <label>Budget:</label>
+        <input type="number" name="budget" step="0.01" value="{{ campaign.budget }}" required>
+        <label>Visibility:</label>
+        <select name="visibility" required>
+            <option value="public" {% if campaign.visibility == 'public' %}selected{% endif %}>Public</option>
+            <option value="private" {% if campaign.visibility == 'private' %}selected{% endif %}>Private</option>
+        </select>
+        <label>Goals:</label>
+        <textarea name="goals" required>{{ campaign.goals }}</textarea>
+        <button type="submit">Update</button>
+    </form>
+</body>
+</html>
+

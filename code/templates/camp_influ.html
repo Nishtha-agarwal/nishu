@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campaign</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            margin: 0;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: lightpink;
+            color: black;
+            text-align:center;
+            height: 100vh;
+            padding-top: 30px;
+            position: fixed;
+        }
+        .sidebar a {
+            padding: 15px;
+            text-decoration: arial;
+            text-align : center;
+            color: darkpink;
+            display: block;
+        }
+        .sidebar a:hover {
+            background-color: blue;
+        }
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+            width: calc(100% - 250px);
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            margin: 0;
+        }
+        .stats-overview {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+        .stats-box {
+            background-color: #f4f4f4;
+            padding: 20px;
+            border-radius: 8px;
+            width: 20%;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        .section h2 {
+            margin-bottom: 10px;
+        }
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .table th, .table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+        .table th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="sidebar">
+                <h2>Influencers Dashboard</h2>
+                <a href="{{ url_for('influencer') }}"><h3>Dashboard</h3></a>
+                <a href="{{ url_for('profile') }}"><h3>Profile</h3></a>
+                <a href="{{ url_for('campaign') }}"><h3>Campaigns</h3></a>
+                <a href="{{ url_for('login') }}"><h3>Logout</h3></a>
+            </div>
+        </div>
+        <div class="main-content">
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th> Name </th>
+                        <th> Description </th>
+                        <th> Budget </th>
+                        <th> Action </th>
+                    </tr>
+                </thead>   
+                <tbody>
+                {% for campaign in campaign %}
+                    <tr>
+                        <td>{{ campaign.name }}</td>
+                        <td>{{ campaign.description }}</td>
+                        <td>{{ campaign.budget }}</td>
+                        <td>
+                            <a href="{{url_for('view_camp', campaign_id=campaign.id)}}">View</a>
+                            <a href="{{url_for('request_camp')}}" class="btn btn-success mt-4" >Request</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>    
+            </table>   
+            <br>
+            <br>
+            <h1>Ad_Request</h1>
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th> Campaign </th>
+                        <th> Requirement</th>
+                        <th> Budget </th>
+                        <th> Action </th>
+                    </tr>
+                </thead>   
+                <tbody>
+                {% for ad_request in ad_requests %}
+                    <tr>
+                        <td>{{ ad_request.id }}</td>
+                        <td>{{ ad_request.requirements }}</td>
+                        <td>{{ ad_request.payment_amount }}</td>
+                        <td class="Action">
+                            <a href="{{ url_for('accept_request1', ad_request_id=ad_request.id) }}" class="btn btn-success">Accept</a>
+                            <a href="{{ url_for('reject_request1', ad_request_id=ad_request.id) }}" class="btn btn-success">Reject</a>
+                    </td>
+                    </tr>
+                {% endfor %}
+                </tbody>    
+            </table> 
+        </div>        
+    </div>
+</body>
+</html>

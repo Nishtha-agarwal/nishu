@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Ad Request</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        /* Form Styles */
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="number"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h2>Create Ad Request</h2>
+    <form method="POST">
+        <label>Campaign:</label>
+        <select name="campaign_id" required>
+            {% for campaign in campaigns %}
+            <option value="{{ campaign.campaign_id }}">{{ campaign.name }}</option>
+            {% endfor %}
+        </select>
+        <label>Influencer:</label>
+        <select name="influencer_id" required>
+            {% for influencer in influencers %}
+            <option value="{{ influencer.influencer_id }}">{{ influencer.name }}</option>
+            {% endfor %}
+        </select>
+        <label>Requirements:</label>
+        <textarea name="requirements" required></textarea>
+        <label>Payment Amount:</label>
+        <input type="number" name="payment_amount" step="0.01" required>
+        <label>Status:</label>
+        <select name="status" required>
+            <option value="Pending">Pending</option>
+            <option value="Accepted">Accepted</option>
+            <option value="Rejected">Rejected</option>
+        </select>
+        <button type="submit">Create</button>
+    </form>
+</body>
+</html>

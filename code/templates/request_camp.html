@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+    <h1>Create Request</h1>
+    <form action="{{ url_for('request_camp') }}" method="post">
+        <label for="campaign_id">Campaign ID:</label>
+        <input type="text" id="campaign_id" name="campaign_id" required>
+        <br>
+        <label for="influencer_id">Influencer ID:</label>
+        <input type="text" id="influencer_id" name="influencer_id" required>
+        <br>
+        <label for="message">Message:</label>
+        <input type="text" id="message" name="message" required>
+        <br>
+        <label for="status">Status (optional):</label>
+        <input type="text" id="status" name="status" value="Pending">
+        <br>
+        <button type="submit">Submit</button>
+    </form>
+    </div>
+</body>
+</html>

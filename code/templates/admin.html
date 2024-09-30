@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            margin: 0;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: lightpink;
+            color: black;
+            text-align:center;
+            height: 100vh;
+            padding-top: 30px;
+            position: fixed;
+        }
+        .sidebar a {
+            padding: 15px;
+            text-decoration: arial;
+            text-align : center;
+            color: darkpink;
+            display: block;
+        }
+        .sidebar a:hover {
+            background-color: blue;
+        }
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+            width: calc(100% - 250px);
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            margin: 0;
+        }
+        .stats-overview {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+        .stats-box {
+            background-color: #f4f4f4;
+            padding: 20px;
+            border-radius: 8px;
+            width: 20%;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .table th, .table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+        .table th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Admin Dashboard</h2>
+        <a href="{{url_for('admin')}}"><h3>Dashboard Overview</h3></a>
+        <a href="{{url_for('find')}}"><h3>Find</h3></a>
+        <a href="{{url_for('stat')}}"><h3>Statatics</h3></a>
+        <a href="{{url_for('login')}}"><h3>Logout</h3></a>
+    </div>
+    <div class="main-content">
+        <div class="stats-container">
+            <div class="stat-card">
+                <h2>Users</h2>
+                <p>Sponsors: {{ active_users['Sponsors'] }}, Influencers: {{ active_users['Influencers'] }}</p>
+            </div>
+            <div class="stat-card">
+                <h2>Total Campaigns</h2>
+                <p>Public: {{ total_campaigns['Public'] }}, Private: {{ total_campaigns['Private']}}</p>
+            </div>
+            <div class="stat-card">
+                <h2>Ad Requests</h2>
+                <p>Accepted: {{ request_status['Accepted'] }}, Rejected: {{ request_status['Rejected'] }}</p>
+            </div>
+            <div class="stat-card">
+                <h2>Flagged Users</h2>
+                <p>Sponsors: {{ flagged_users['Sponsors'] }}, Influencers: {{ flagged_users['Influencers'] }}</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
