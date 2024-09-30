@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Page</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color : indigo;
+        }
+        .container {
+            max-width: 400px;
+            margin: 100px auto;
+            background-color: cyan;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .login-container select, 
+        .login-container input {
+            width: 100%;
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+    </style>      
+</head>
+<body>
+<div class="container">
+    <div class="row justify-content-center mt-5">
+        <h2><u>Register</u></h2>
+    </div>
+    <div class="form-group">
+        <label for="userType">I am :</label>
+        <br>
+        <select class="form-control" id="userType" name="userType" onchange="showForm(this.value)">
+            <option value="">Select...</option>
+            <option value="sponsor">Sponsor</option>
+            <option value="influencer">Influencer</option>
+        </select>
+    </div>
+    <br>
+    <div id="sponsorForm" class="d-none">
+        <h3>Sponsor Registration</h3>
+        <br>
+        <form action="/register" method="post">
+            <input type="hidden" id="sponsorUserType" name="userType" value="sponsor">
+            <div class="form-group">
+                <label for="id">ID :</label>
+                <input type="integer" class="form-control" id="id" name="id" required>
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="password">Password :</label>
+                <input type="text" class="form-control" id="password" name="password" required>
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="name">Name :</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="company_name">Company_name :</label>
+                <input type="text" class="form-control" id="company_name" name="company_name" required>
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="industry">Industry :</label>
+                <input type="text" class="form-control" id="industry" name="industry" required>
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="budget">Budget :</label>
+                <input type="ingeter" class="form-control" id="budget" name="budget" required>
+            </div>
+            <br>
+            <br>
+            <div>
+                <button type="submit" class="btn btn-primary">Register as Sponsor</button>
+            </div>
+        </form>
+    </div>
+    <div id="influencerForm" class="d-none">
+        <h3>Influencer Registration</h3>
+        <br>
+        <form action="/register" method="post">
+            <input type="hidden" id="influencerUserType" name="userType" value="influencer">
+            <div class="form-group">
+                <label for="id">ID :</label>
+                <input type="integer" class="form-control" id="id" name="id" required>
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="password">password :</label>
+                <input type="integer" class="form-control" id="password" name="password" required>
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="name" class="form-control" id="name" name="name" required>
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="category">Category :</label>
+                <input type="text" class="form-control" id="category" name="category" required>
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="niche">Niche :</label>
+                <input type="text" class="form-control" id="niche" name="niche" required>
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="followers">Followers :</label>
+                <input type="integer" class="form-control" id="followers" name="followers" required>
+            </div>
+            <br>
+            <br>
+            <div>
+                <button type="submit" class="btn btn-primary">Register as Influencer</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    function showForm(userType) {
+        document.getElementById('sponsorForm').classList.add('d-none');
+        document.getElementById('influencerForm').classList.add('d-none');
+        if (userType == 'sponsor') {
+            document.getElementById('sponsorForm').classList.remove('d-none');
+        } else if (userType == 'influencer') {
+            document.getElementById('influencerForm').classList.remove('d-none');
+        }
+    }
+</script>
+</body>
+</html>

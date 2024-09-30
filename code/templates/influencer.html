@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Influencers</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            margin: 0;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: lightpink;
+            color: black;
+            text-align:center;
+            height: 100vh;
+            padding-top: 30px;
+            position: fixed;
+        }
+        .sidebar a {
+            padding: 15px;
+            text-decoration: arial;
+            text-align : center;
+            color: darkpink;
+            display: block;
+        }
+        .sidebar a:hover {
+            background-color: blue;
+        }
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+            width: calc(100% - 250px);
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            margin: 0;
+        }
+        .text-shadow {
+            font-family: 'Montserrat', sans-serif;
+            color: Orange;
+            font-size: 30px;
+            text-shadow: 6px 6px 4px rgba(0, 0, 0, 0.4);
+        }
+        .stats-overview {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+        .stats-box {
+            background-color: #f4f4f4;
+            padding: 20px;
+            border-radius: 8px;
+            width: 20%;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .table th, .table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+        .table th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+<div class="row">
+    <div class="col-md-3">
+        <div class="sidebar">
+            <h2>Influencers Dashboard</h2>
+            <a href="{{ url_for('influencer') }}"><h3>Dashboard</h3></a>
+            <a href="{{ url_for('profile') }}"><h3>Profile</h3></a>
+            <a href="{{ url_for('camp_influ') }}"><h3>Campaign</h3></a>
+            <a href="{{ url_for('login') }}"><h3>Logout</h3></a>
+        </div>
+    </div>
+    <div class="main-content">
+        <div class="col-md-9">
+            <div class="list-group">
+                <h2 class="text-shadow">Welcome to Influencer Hub</h2>
+                <table>
+                    <thead>
+                        <h4><u> Your Profile </u></h4>
+                        {% for influencer in influencer %}
+                            <td class="mb-1">{{ influencer.name }} | </td>
+                            <td class="mb-1">{{ influencer.niche }} | </td>
+                            <td class="mb-1">{{ influencer.followers }} followers</td>
+                        {% endfor %}
+                    </thead>
+                </table>    
+            </div>
+            <h2>Campaigns</h2>
+            <div class="list-group">
+                {% for campaign in campaign %}
+                    <a href="{{url_for('view_camp', campaign_id=campaign.id)}}" class="list-group-item list-group-item-action">
+                        <p class="mb-1">{{ campaign.title }}</p>
+                        <p class="mb-1">{{ campaign.description }}</p>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>  
+</div>
+</body>
+</html>
